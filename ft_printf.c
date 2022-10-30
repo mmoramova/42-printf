@@ -6,34 +6,20 @@
 /*   By: mmoramov <mmoramov@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/28 12:42:36 by mmoramov          #+#    #+#             */
-/*   Updated: 2022/10/29 18:57:49 by mmoramov         ###   ########.fr       */
+/*   Updated: 2022/10/30 14:33:31 by mmoramov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <unistd.h>
 #include <stdio.h>
 #include <stdarg.h>
-#include "libftprintf.h"
+#include "ft_printf.h"
 
 int	ft_putchar(int c)
 {
 	write(1, &c, 1);
 	return (1);
 }
-/*
-char	*ft_strdup(const char *s1)
-{
-	void	*p;
-	size_t	len_s1;
-
-	len_s1 = ft_strlen(s1) + 1;
-	p = (void *)malloc(len_s1 * sizeof(char));
-	if (!p)
-		return (NULL);
-	ft_strlcpy(p, s1, len_s1);
-	return (p);
-}
-*/
 
 int	ft_putstr(unsigned char *s)
 {
@@ -69,7 +55,7 @@ int ft_putpointer(void * p)
 
 	//x = "0x";
 	len += ft_putstr((unsigned char *)"0x");
-	len += ft_putnbrbaselong((unsigned long)p, 16, "0123456789abcdef");
+	len += ft_putnbrbaselong((unsigned long long)p, 16, "0123456789abcdef");
 	//printf("\n4: %p\n", p);
 	return(len);
 }
@@ -107,7 +93,7 @@ int ft_putnbrbase(long n, int base)
 
 int ft_putnbrbaselong(unsigned long n, unsigned int base, char *base_set)
 {
-	unsigned long	nbr;
+	unsigned long nbr;
 	int		len;
 	//char	*base_set;
 
@@ -162,15 +148,15 @@ int ft_printf(const char *str, ...)
 			else if (str[i] == 's') //ok
 				len += ft_putstr(va_arg(a, unsigned char*));
 			else if (str[i] == 'p') //ok
-				len += ft_putpointer(va_arg(a,unsigned long*));
+				len += ft_putpointer(va_arg(a,unsigned int*));
 			else if (str[i] == 'd' || str[i] == 'i') //ok
 				len += ft_putnbrbase(va_arg(a, int), 10);
 			else if (str[i] == 'u') //ok
-				len += ft_putnbrbaselong(va_arg(a, unsigned long), 10, "0123456789"); //ok
+				len += ft_putnbrbaselong(va_arg(a, unsigned int), 10, "0123456789"); //ok
 			else if (str[i] == 'x') //ok
-				len += ft_putnbrbaselong(va_arg(a, unsigned long), 16, "0123456789abcdef"); //ok
+				len += ft_putnbrbaselong(va_arg(a, unsigned int), 16, "0123456789abcdef"); //ok
 			else if (str[i]	== 'X')
-				len += ft_putnbrbaselong(va_arg(a, unsigned long), 16, "0123456789ABCDEF"); //ok
+				len += ft_putnbrbaselong(va_arg(a, unsigned int), 16, "0123456789ABCDEF"); //ok
 			else if (str[i] == '%') //ok
 				len += ft_putchar('%');
 			else
@@ -181,8 +167,8 @@ int ft_printf(const char *str, ...)
 	va_end (a);
 	return (len);
 }
-
-/*int main(void)
+/*
+int main(void)
 {
 	//int i = 55;
 	int len;
@@ -198,7 +184,10 @@ int ft_printf(const char *str, ...)
 	
 	//ft_printf("\n3: %p\n", (void *)-1);
 	//len = printf("3: %p", (void *)-1);
-	len = ft_printf("$:%s\rI%d\rQ%s0\nT\r%sz\f%%+i\viiI%c2eB(%uK+,6", "H-1zmqwu*.0i|*SZvv\tW[8EG\rmjC~GU\fTW\f)t')8ICF\njVV_n\t\fwKP6K`", 831592437, ")z", "~8N*zpkGK54D\\=)]$[Po\t 5Ug", -1150869556, 880035667);
+	
+	len = printf("%u", 9223372036854775807LL);
+	printf("\nlen: %d\n", len);
+	len = ft_printf("%u", 9223372036854775807LL);
 	printf("\nlen: %d", len);
 }*/
 //if (c == 'i' || c =='d')

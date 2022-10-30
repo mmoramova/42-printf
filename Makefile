@@ -6,13 +6,13 @@
 #    By: mmoramov <mmoramov@student.42barcel>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/10/29 11:44:50 by mmoramov          #+#    #+#              #
-#    Updated: 2022/10/29 16:15:30 by mmoramov         ###   ########.fr        #
+#    Updated: 2022/10/30 14:11:29 by mmoramov         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 
 NAME = libftprintf.a
-HEADER = libftprintf.h
+HEADER = ft_printf.h
 C_FLAGS = -Wall -Wextra -Werror
 RM = rm -f
 
