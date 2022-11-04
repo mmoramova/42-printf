@@ -6,7 +6,7 @@
 #    By: mmoramov <mmoramov@student.42barcel>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/10/29 11:44:50 by mmoramov          #+#    #+#              #
-#    Updated: 2022/10/30 14:11:29 by mmoramov         ###   ########.fr        #
+#    Updated: 2022/11/04 17:34:04 by mmoramov         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -49,6 +49,7 @@ $(NAME)::
 
 clean:
 	$(RM) $(OBJ)
+
 fclean: clean
 	$(RM) $(NAME)
 	@echo "$(MAGENTA)Everything has been cleaned.$(BLACK)"
