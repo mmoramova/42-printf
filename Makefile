@@ -6,7 +6,7 @@
 #    By: mmoramov <mmoramov@student.42barcel>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/10/29 11:44:50 by mmoramov          #+#    #+#              #
-#    Updated: 2022/11/05 12:43:15 by mmoramov         ###   ########.fr        #
+#    Updated: 2022/11/05 17:15:20 by mmoramov         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,6 +15,8 @@ NAME = libftprintf.a
 HEADER = ft_printf.h
 C_FLAGS = -Wall -Wextra -Werror -MMD
 RM = rm -f
+SRC_LIBFT = libft/libft.a 
+MAKE_LIBFT = make -C libft
 
 # Colors
 BLACK = \033[0;39m
@@ -33,14 +35,18 @@ SRC = $(addsuffix .c, $(SRC_FILES))
 OBJ = $(SRC:.c=.o)
 DEP = $(SRC:.c=.d)
 
-all: $(NAME)
+all: make_libs $(NAME)
 
--include		${DEP}
+make_libs: 
+	@$(MAKE_LIBFT)
+
+-include ${DEP}
 
 %.o: %.c
 	$(CC) $(C_FLAGS) -c $< -o $@
 
-$(NAME):: $(OBJ)
+$(NAME):: $(OBJ) ./$(SRC_LIBFT)
+	cp $(SRC_LIBFT) $(NAME)
 	ar -rcs $(NAME) $(OBJ)
 	@echo "$(BLUE)Everything has been compilated.$(BLACK)"
 
@@ -51,9 +57,11 @@ $(NAME)::
 
 clean:
 	$(RM) $(OBJ) $(DEP)
+	$(MAKE_LIBFT) clean
 
 fclean: clean
 	$(RM) $(NAME)
+	$(MAKE_LIBFT) fclean
 	@echo "$(MAGENTA)Everything has been cleaned.$(BLACK)"
 	
 re: fclean all

@@ -6,30 +6,11 @@
 /*   By: mmoramov <mmoramov@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/28 12:42:36 by mmoramov          #+#    #+#             */
-/*   Updated: 2022/11/05 12:17:29 by mmoramov         ###   ########.fr       */
+/*   Updated: 2022/11/05 17:17:12 by mmoramov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
-
-size_t	ft_strlen(const char *s)
-{
-	int	i;
-
-	i = 0;
-	while (s[i])
-		i++;
-	return (i);
-}
-
-char	*ft_strchr(const char *s, int c)
-{
-	while (*s && (*s != (char) c))
-		s++;
-	if (*s == (char) c)
-		return ((char *) s);
-	return (NULL);
-}
 
 int	ft_printf(const char *str, ...)
 {
