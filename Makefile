@@ -6,14 +6,14 @@
 #    By: mmoramov <mmoramov@student.42barcel>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/10/29 11:44:50 by mmoramov          #+#    #+#              #
-#    Updated: 2022/11/04 17:34:04 by mmoramov         ###   ########.fr        #
+#    Updated: 2022/11/05 12:43:15 by mmoramov         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 
 NAME = libftprintf.a
 HEADER = ft_printf.h
-C_FLAGS = -Wall -Wextra -Werror
+C_FLAGS = -Wall -Wextra -Werror -MMD
 RM = rm -f
 
 # Colors
@@ -27,18 +27,20 @@ MAGENTA = \033[0;95m
 CYAN = \033[0;96m
 WHITE = \033[0;97m
 
-SRC_FILES = ft_printf
+SRC_FILES = ft_printf ft_vprintf ft_putchar ft_putnbr ft_putnbrbase	*ft_choosebase ft_putstr ft_putptr
 
 SRC = $(addsuffix .c, $(SRC_FILES))
 OBJ = $(SRC:.c=.o)
-INCLUDE = -I ./
+DEP = $(SRC:.c=.d)
 
 all: $(NAME)
 
-%.o: %.c $(HEADER)
-	$(CC) $(C_FLAGS) $(INCLUDE) -c $< -o $@
+-include		${DEP}
 
-$(NAME):: $(OBJ) $(HEADER)
+%.o: %.c
+	$(CC) $(C_FLAGS) -c $< -o $@
+
+$(NAME):: $(OBJ)
 	ar -rcs $(NAME) $(OBJ)
 	@echo "$(BLUE)Everything has been compilated.$(BLACK)"
 
@@ -48,7 +50,7 @@ $(NAME)::
 .PHONY: all clean fclean re
 
 clean:
-	$(RM) $(OBJ)
+	$(RM) $(OBJ) $(DEP)
 
 fclean: clean
 	$(RM) $(NAME)
